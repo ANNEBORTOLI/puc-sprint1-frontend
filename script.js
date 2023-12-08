@@ -101,14 +101,15 @@ const insertList = (taskDescription, taskId, taskStatus) => {
 };
 
 const updateTaskStatus = async (taskId, status) => {
-  let url = `http://127.0.0.1:5000/task/${taskId}`;
+  let url = `http://127.0.0.1:5000/task/`;
   try {
     const response = await fetch(url, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
+        id: taskId,
         done: status
       })
     });
