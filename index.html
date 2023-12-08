@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="todo-app">
+        <h2>ToDo List <img src="/public/to-do-list.png" alt="" /></h2>
+        <div class="row">
+          <input
+            type="text"
+            name=""
+            id="input-box"
+            placeholder="Add Your Task"
+          />
+          <button class="rainbow rainbow-1" onclick="newItem()">Add</button>
+        </div>
+        <!-- Tabela com items existentes -->
+        <ul id="list-container"></ul>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script
+      src="https://kit.fontawesome.com/e0af160dba.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
