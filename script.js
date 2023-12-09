@@ -30,7 +30,7 @@ const postItem = async (inputBoxValue) => {
 
   let url = "http://127.0.0.1:5000/task";
   fetch(url, {
-    method: "post",
+    method: "POST",
     body: formData
   })
     .then((response) => response.json())
@@ -45,10 +45,8 @@ const insertDelButton = (parent) => {
   parent.appendChild(icon);
 };
 
-// deleteItem
 const deleteItem = (taskId) => {
-  console.log(taskId);
-  let url = `http://127.0.0.1:5000/task/${taskId}`;
+  let url = `http://127.0.0.1:5000/task?id=${taskId}`;
   fetch(url, {
     method: "delete"
   })
@@ -73,6 +71,7 @@ const newItem = async () => {
 };
 
 const insertList = (taskDescription, taskId, taskStatus) => {
+  // console.log(`**********ID: ${taskId}, DONE: ${taskStatus}*********`);
   let item = [taskDescription, taskId, taskStatus];
   let li = document.createElement("li");
   li.setAttribute("id", taskId);
@@ -91,36 +90,23 @@ const insertList = (taskDescription, taskId, taskStatus) => {
       e.currentTarget.classList.toggle("checked");
 
       const isChecked = e.currentTarget.classList.contains("checked");
-      if (isChecked) {
-        updateTaskStatus(taskId, 1);
-      } else {
-        updateTaskStatus(taskId, 0);
-      }
+      isChecked ? updateTaskStatus(taskId, 1) : updateTaskStatus(taskId, 0);
     }
   });
 };
 
-const updateTaskStatus = async (taskId, status) => {
-  let url = `http://127.0.0.1:5000/task/`;
-  try {
-    const response = await fetch(url, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        id: taskId,
-        done: status
-      })
+const updateTaskStatus = (taskId, status) => {
+  const formData = new FormData();
+  formData.append("id", taskId);
+  formData.append("done", status);
+
+  let url = "http://127.0.0.1:5000/task";
+  fetch(url, {
+    method: "PATCH",
+    body: formData
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error("Error:", error);
     });
-
-    if (!response.ok) {
-      console.error("Error:", response.statusText);
-    }
-
-    const data = await response.json();
-    console.log("Response:", data);
-  } catch (error) {
-    console.error("Error:", error);
-  }
 };
