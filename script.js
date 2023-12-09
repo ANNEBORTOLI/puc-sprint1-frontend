@@ -71,7 +71,6 @@ const newItem = async () => {
 };
 
 const insertList = (taskDescription, taskId, taskStatus) => {
-  // console.log(`**********ID: ${taskId}, DONE: ${taskStatus}*********`);
   let item = [taskDescription, taskId, taskStatus];
   let li = document.createElement("li");
   li.setAttribute("id", taskId);
