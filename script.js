@@ -53,6 +53,20 @@ const deleteItem = (taskId) => {
     });
 };
 
+const cleanList = () => {
+  var list = document.getElementById("list-container");
+  if (list) {
+    var liCount = list.getElementsByTagName("li").length;
+    // Remove iniciando pela última
+    for (var i = liCount - 1; i >= 0; i--) {
+      var liElement = list.getElementsByTagName("li")[i];
+      list.removeChild(liElement);
+    }
+  } else {
+    console.error('Element with id "myList" not found.');
+  }
+};
+
 const newItem = async () => {
   let inputBoxValue = document.getElementById("input-box").value;
 
@@ -61,7 +75,11 @@ const newItem = async () => {
   } else {
     try {
       await postItem(inputBoxValue);
-      setTimeout(getList(), 5000); // Atualiza a lista depois de adicionar o novo item
+      cleanList();
+      setTimeout(() => {
+        getList();
+      }, 100); // Atualiza a lista depois de adicionar o novo item
+
       document.getElementById("input-box").value = "";
     } catch (error) {
       console.error("Error:", error);
@@ -107,4 +125,11 @@ const updateTaskStatus = (taskId, status) => {
     .catch((error) => {
       console.error("Error:", error);
     });
+
+  cleanList();
+  setTimeout(() => {
+    getList();
+  }, 50); // Atualiza a lista depois de adicionar o novo item
+
+  document.getElementById("input-box").value = "";
 };
