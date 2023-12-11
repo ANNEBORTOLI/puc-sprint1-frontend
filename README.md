@@ -49,7 +49,7 @@ To use the To-Do List Web App, simply open the index.html file in your preferred
 ## :camera_flash:Usage Examples
 
 <div align="center">
-  <img src="public/index.png">
+  <img src="public/front.png">
 </div>
 <br>
 
