@@ -8,11 +8,8 @@ const getList = async () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      // Atualiza a variável global
       tasksList = data.tasks;
-      // Limpa a lista desatualizada
       listContainer.innerHTML = "";
-      // Adiciona casa item na lista
       data.tasks.forEach((item) =>
         insertList(item.description, item.id, item.done)
       );
@@ -62,11 +59,13 @@ const newItem = async () => {
   if (inputBoxValue === "") {
     alert("Escreva sua tarefa!");
   } else {
-    postItem(inputBoxValue);
-    getList();
-    // Refresh the page
-    location.reload();
-    document.getElementById("input-box").value = "";
+    try {
+      await postItem(inputBoxValue);
+      await getList(); // Atualiza a lista depois de adicionar o novo item
+      document.getElementById("input-box").value = "";
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 };
 
