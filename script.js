@@ -61,7 +61,7 @@ const newItem = async () => {
   } else {
     try {
       await postItem(inputBoxValue);
-      await getList(); // Atualiza a lista depois de adicionar o novo item
+      setTimeout(getList(), 5000); // Atualiza a lista depois de adicionar o novo item
       document.getElementById("input-box").value = "";
     } catch (error) {
       console.error("Error:", error);
